@@ -1,0 +1,3 @@
+# Build directory for ESP-IDF
+lasko_homekit_fan/build
+lasko_homekit_fan/managed_components

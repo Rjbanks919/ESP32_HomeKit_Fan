@@ -24,6 +24,8 @@ main () {
 		idf.py monitor
 	elif [[ -v flash ]]; then
 		idf.py flash
+	elif [[ -v oneshot ]]; then
+		idf.py build flash monitor
 	else
 		idf.py build
 	fi
@@ -32,7 +34,7 @@ main () {
 	popd > /dev/null
 }
 
-# Function to parse commandline arguments
+# Function to parse command line arguments
 parse_args () {
     while [[ $# -gt 0 ]]; do
 	case $1 in
@@ -44,6 +46,9 @@ parse_args () {
 		shift;;
 	    -f | --flash)
 		flash=1
+		shift;;
+		-o | --oneshot)
+		oneshot=1
 		shift;;
 	    *)
 		echo "Unknown option $1"
