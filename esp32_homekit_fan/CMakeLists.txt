@@ -14,4 +14,4 @@ endif(DEFINED ENV{HOMEKIT_PATH})
 set(EXTRA_COMPONENT_DIRS ${HOMEKIT_PATH}/components ${HOMEKIT_PATH}/components/homekit ${HOMEKIT_PATH}/components/common)
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
-project(lasko_homekit_fan)
+project(esp32_homekit_fan)
