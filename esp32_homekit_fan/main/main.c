@@ -114,7 +114,12 @@ void app_main(void)
     /* Initialize the HomeKit component */
     HomeKit_init();
 
-    /* Give 10 seconds for the WiFi task to get going */
+    /**
+     * @note I've observed crashes when interrupts interrupt Wi-Fi setup.
+     *
+     * In order to avoid this, I wait 10 seconds before initializing input
+     * hardware that implement interrupts.
+     */
     vTaskDelay((10 * 1000) / portTICK_PERIOD_MS);
 
     /* Initialize the input hardware */
