@@ -4,7 +4,7 @@ A project to convert a conventional fan into a HomeKit-compatible smart fan
 using an ESP32 and the 
 [ESP HomeKit SDK](https://github.com/espressif/esp-homekit-sdk).
 
-< INSERT FAN + HOMEKIT + ESP32 PICTURE HERE >
+![Fan_HomeKit_ESP32](https://github.com/Rjbanks919/ESP32_HomeKit_Fan/blob/main/images/header_image.png)
 
 ## Getting Started
 
