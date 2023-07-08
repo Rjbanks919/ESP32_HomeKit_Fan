@@ -29,6 +29,9 @@
 /** Tag used for ESP logging */
 static const char *TAG = "EventHandlers";
 
+/** Global semaphore for adding events */
+volatile bool g_Fan_event_lock;
+
 /**
  * @brief   Handler for HomeKit-sourced events.
  * @details This function gets called whenever there is a new event with the

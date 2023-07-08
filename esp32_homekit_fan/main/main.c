@@ -70,6 +70,9 @@ static void Lasko_event_handler(void *p)
         /* Received an event! */
 
         Led_write_builtin(true);
+        
+        /* Acquire the lock */
+        g_Fan_event_lock = true;
 
         switch (event.source)
         {
@@ -91,6 +94,12 @@ static void Lasko_event_handler(void *p)
         Led_write_speed((g_Fan_state.on) ? g_Fan_state.speed : SPEED_OFF);
 
         Led_write_builtin(false);
+
+        /* Give time to settle before continuing, 250ms */
+        vTaskDelay(250 / portTICK_PERIOD_MS);
+
+        /* Release the lock */
+        g_Fan_event_lock = false;
     }
 }
 
@@ -114,12 +123,7 @@ void app_main(void)
     /* Initialize the HomeKit component */
     HomeKit_init();
 
-    /**
-     * @note I've observed crashes when interrupts interrupt Wi-Fi setup.
-     *
-     * In order to avoid this, I wait 10 seconds before initializing input
-     * hardware that implement interrupts.
-     */
+    /* Give 10 seconds for the WiFi task to get going */
     vTaskDelay((10 * 1000) / portTICK_PERIOD_MS);
 
     /* Initialize the input hardware */
@@ -133,6 +137,9 @@ void app_main(void)
 
     /* Create a FreeRTOS queue, alloc'ing space for 10 events in the queue */
     g_Fan_event_queue = xQueueCreate(10, sizeof(Fan_event_t));
+
+    /* Ready to receive events */
+    g_Fan_event_lock = false;
 
     /* Create our event handler task */
     (void) xTaskCreate(

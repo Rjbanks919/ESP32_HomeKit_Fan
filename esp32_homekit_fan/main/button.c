@@ -64,6 +64,11 @@ static void IRAM_ATTR power_interrupt(void *args)
 {
     (void) args;
 
+    if (g_Fan_event_lock)
+    {
+        goto exit;
+    }
+
     /* Ensure we aren't receiving bounces */
     struct timeval tv_now;
     (void) gettimeofday(&tv_now, NULL);
@@ -104,6 +109,11 @@ exit:
 static void IRAM_ATTR oscillate_interrupt(void *args)
 {
     (void) args;
+
+    if (g_Fan_event_lock)
+    {
+        goto exit;
+    }
 
     /* Ensure we aren't receiving bounces */
     struct timeval tv_now;

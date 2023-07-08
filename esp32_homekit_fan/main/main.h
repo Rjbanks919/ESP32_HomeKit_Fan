@@ -115,6 +115,9 @@ extern Fan_state_t g_Fan_state;
 /** Queue to hold incoming control events */
 extern QueueHandle_t g_Fan_event_queue;
 
+/** Global semaphore for adding events */
+extern volatile bool g_Fan_event_lock;
+
 #endif /* MAIN_H */
 
 /** @} end Main */
